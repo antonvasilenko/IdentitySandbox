@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentitySrv", "IdentitySrv.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webko", "..\webko\webko.csproj", "{69E55446-ED69-46E0-820A-2F030974B33C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webko.Client", "..\webko.Client\webko.Client.csproj", "{5DD0DDEB-682C-43F5-B7F6-46474BC845F2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{69E55446-ED69-46E0-820A-2F030974B33C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69E55446-ED69-46E0-820A-2F030974B33C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69E55446-ED69-46E0-820A-2F030974B33C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DD0DDEB-682C-43F5-B7F6-46474BC845F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DD0DDEB-682C-43F5-B7F6-46474BC845F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DD0DDEB-682C-43F5-B7F6-46474BC845F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DD0DDEB-682C-43F5-B7F6-46474BC845F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

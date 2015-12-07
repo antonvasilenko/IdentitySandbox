@@ -14,7 +14,7 @@ namespace webko
                 Authority = "https://localhost:44333",
                 ValidationMode = ValidationMode.ValidationEndpoint,
 
-                RequiredScopes = new[] { "api1" }
+                RequiredScopes = new[] { "servers" }
             });
 
             // configure web api
