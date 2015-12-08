@@ -8,13 +8,13 @@ namespace webko
     {
         public void Configuration(IAppBuilder app)
         {
-            // accept access tokens from identityserver and require a scope of 'api1'
+            // accept access tokens from identityserver and require a scope of 'desktop api'
             app.UseIdentityServerBearerTokenAuthentication(new IdentityServerBearerTokenAuthenticationOptions
             {
                 Authority = "https://localhost:44333",
                 ValidationMode = ValidationMode.ValidationEndpoint,
 
-                RequiredScopes = new[] { "servers" }
+                RequiredScopes = new[] { "desktop api" }
             });
 
             // configure web api

@@ -56,9 +56,9 @@ namespace IdentitySrv
         {
             return new List<Scope>
         {
-            new Scope{Name = "desktop"},
-            new Scope{Name = "mobile"},
-            new Scope{Name = "servers"},
+            new Scope{Name = "desktop api"},
+            new Scope{Name = "mobile api"},
+            new Scope{Name = "server api"},
         };
         }
     }
@@ -78,7 +78,7 @@ namespace IdentitySrv
                 AccessTokenType = AccessTokenType.Reference,
 
                 Flow = Flows.ClientCredentials,
-
+                
                 ClientSecrets = new List<Secret>
                 {
                     new Secret("F621F470-9731-4A25-80EF-67A6F7C5F4B8".Sha256())
@@ -86,7 +86,7 @@ namespace IdentitySrv
 
                 AllowedScopes = new List<string>
                 {
-                    "servers"
+                    "desktop api"
                 }
             }
         };
