@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using IdentityServer3.Core.Configuration;
@@ -43,7 +44,7 @@ namespace IdentitySrv
                 Factory = new IdentityServerServiceFactory()
                             .UseInMemoryClients(Clients.Get())
                             .UseInMemoryScopes(Scopes.Get())
-                            .UseInMemoryUsers(new List<InMemoryUser>())
+                            .UseInMemoryUsers(Users.Get())
             };
 
             app.UseIdentityServer(options);
@@ -56,9 +57,9 @@ namespace IdentitySrv
         {
             return new List<Scope>
         {
-            new Scope{Name = "desktop api"},
+            new Scope{Name = "desktopApi", Claims = new List<ScopeClaim>(){new ScopeClaim("orgUnit")}},
             new Scope{Name = "mobile api"},
-            new Scope{Name = "server api"},
+            new Scope{Name = "servicesApi"},
         };
         }
     }
@@ -68,25 +69,76 @@ namespace IdentitySrv
         public static List<Client> Get()
         {
             return new List<Client>
-        {
-           // no human involved
-            new Client
             {
-                ClientName = "Silicon-only Client",
-                ClientId = "silicon",
-                Enabled = true,
-                AccessTokenType = AccessTokenType.Reference,
-
-                Flow = Flows.ClientCredentials,
-                
-                ClientSecrets = new List<Secret>
+                // no human involved
+                new Client
                 {
-                    new Secret("F621F470-9731-4A25-80EF-67A6F7C5F4B8".Sha256())
+                    ClientName = "Alarm Builder",
+                    ClientId = "silicon",
+                    Enabled = true,
+                    AccessTokenType = AccessTokenType.Reference,
+
+                    Flow = Flows.ClientCredentials,
+
+                    ClientSecrets = new List<Secret>
+                    {
+                        new Secret("F621F470-9731-4A25-80EF-67A6F7C5F4B8".Sha256())
+                    },
+                    
+                    AllowedScopes = new List<string>
+                    {
+                        "servicesApi"
+                    }
                 },
 
-                AllowedScopes = new List<string>
+                // human is involved
+                new Client
                 {
-                    "desktop api"
+                    ClientName = "Desktop App",
+                    ClientId = "carbon",
+                    Enabled = true,
+                    AccessTokenType = AccessTokenType.Reference,
+
+                    Flow = Flows.ResourceOwner,
+
+                    ClientSecrets = new List<Secret>
+                    {
+                        new Secret("21B5F798-BE55-42BC-8AA8-0025B903DC3B".Sha256())
+                    },
+
+                    AllowedScopes = new List<string>
+                    {
+                        "desktopApi"
+                    }
+                }
+            };
+        }
+    }
+
+    static class Users
+    {
+        public static List<InMemoryUser> Get()
+        {
+            return new List<InMemoryUser>
+        {
+            new InMemoryUser
+            {
+                Username = "bob",
+                Password = "secret",
+                Subject = "1", // org unit id ???
+                Claims = new []
+                {
+                    new Claim("orgUnit", "headorg"), 
+                }
+            },
+            new InMemoryUser
+            {
+                Username = "alice",
+                Password = "secret",
+                Subject = "2",
+                Claims = new []
+                {
+                    new Claim("orgUnit", "antonv"), 
                 }
             }
         };

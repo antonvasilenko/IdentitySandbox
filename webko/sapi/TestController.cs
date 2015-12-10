@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Web.Http;
 
 namespace webko.sapi
@@ -15,11 +10,26 @@ namespace webko.sapi
         {
             var caller = User as ClaimsPrincipal;
 
-            return Json(new
+            var subjectClaim = caller.FindFirst("sub");
+            if (subjectClaim != null)
             {
-                message = "OK computer",
-                client = caller.FindFirst("client_id").Value
-            });
+                return Json(new
+                {
+                    message = "OK user",
+                    client = caller.FindFirst("client_id").Value,
+                    orgUnit = caller.FindFirst("orgUnit").Value,
+                    subject = subjectClaim.Value
+                });
+            }
+            else
+            {
+                return Json(new
+                {
+                    message = "OK service",
+                    orgUnit = caller.FindFirst("orgUnit").Value,
+                    client = caller.FindFirst("client_id").Value
+                });
+            }
         }
     }
 }
